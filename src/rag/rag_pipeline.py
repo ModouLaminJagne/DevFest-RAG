@@ -267,6 +267,17 @@ def create_rag_pipeline(
 ) -> RAGPipeline:
     """
     Factory function to create a RAG pipeline with common configurations.
+    
+    This is a convenience function for quick setup. For the workshop demo,
+    it provides an easy way to get started:
+    
+    Example:
+        >>> pipeline = create_rag_pipeline(
+        ...     data_dir="data/sample_docs",
+        ...     openai_api_key="sk-...",
+        ... )
+        >>> response = pipeline.query("What is RAG?")
+        >>> print(response.answer)
 
     Args:
         data_dir: Directory containing documents to load
