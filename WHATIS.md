@@ -1,4 +1,5 @@
 # 🎯 Retrieval Augmented Generation (RAG) Workshop
+
 ## DevFest 2024 - Understanding and Building RAG Systems
 
 ---
@@ -8,10 +9,13 @@
 **Retrieval Augmented Generation (RAG)** is an AI framework that enhances Large Language Models (LLMs) by combining them with external knowledge retrieval systems. Instead of relying solely on the knowledge encoded during training, RAG systems can access and utilize up-to-date, domain-specific information to generate more accurate and contextually relevant responses.
 
 ### Simple Definition
+>
 > RAG = **Retrieval** (find relevant information) + **Augmented** (enhance the prompt) + **Generation** (create the response)
 
 ### The Core Concept
+
 Think of RAG as giving an AI assistant access to a library. When you ask a question:
+
 1. The system first **searches** through the library (your documents/data)
 2. It **retrieves** the most relevant information
 3. It then **generates** a response using both its built-in knowledge AND the retrieved information
@@ -21,26 +25,31 @@ Think of RAG as giving an AI assistant access to a library. When you ask a quest
 ## 🤔 Why is RAG Important?
 
 ### 1. **Overcomes Knowledge Cutoff**
+
 - LLMs are trained on data up to a certain date
 - RAG allows access to real-time, updated information
 - No need to retrain the entire model for new data
 
 ### 2. **Reduces Hallucinations**
+
 - LLMs can generate plausible but incorrect information
 - RAG grounds responses in actual source documents
 - Provides verifiable, traceable answers
 
 ### 3. **Domain-Specific Knowledge**
+
 - Organizations can use their proprietary data
 - Medical, legal, financial documents can be incorporated
 - Maintains data privacy (data stays in your system)
 
 ### 4. **Cost-Effective**
+
 - No expensive fine-tuning required
 - Easy to update knowledge base
 - Scalable solution for enterprise needs
 
 ### 5. **Transparency & Accountability**
+
 - Source documents can be cited
 - Easier to audit and verify responses
 - Builds trust with end users
@@ -129,27 +138,33 @@ Think of RAG as giving an AI assistant access to a library. When you ask a quest
 ### Step-by-Step Process
 
 #### **Step 1: Document Ingestion (Offline/One-time)**
+
 ```
 Documents → Chunking → Embedding → Vector Database
 ```
+
 - Load your documents (PDFs, text files, web pages, etc.)
 - Split documents into smaller chunks
 - Convert chunks to vector embeddings
 - Store embeddings in a vector database
 
 #### **Step 2: Query Processing (Online/Real-time)**
+
 ```
 User Query → Embedding → Similarity Search → Relevant Chunks
 ```
+
 - User submits a question
 - Query is converted to an embedding
 - Find most similar document chunks
 - Retrieve top-k relevant chunks
 
 #### **Step 3: Response Generation**
+
 ```
 Context + Query → Prompt → LLM → Response
 ```
+
 - Combine retrieved chunks with the original query
 - Create a structured prompt
 - Send to LLM for generation
@@ -160,7 +175,9 @@ Context + Query → Prompt → LLM → Response
 ## 🔑 Key Components
 
 ### 1. **Document Loader**
+
 Responsible for reading various file formats:
+
 - PDF files
 - Text documents
 - Web pages
@@ -168,21 +185,27 @@ Responsible for reading various file formats:
 - APIs
 
 ### 2. **Text Splitter**
+
 Breaks documents into manageable chunks:
+
 - Character-based splitting
 - Sentence-based splitting
 - Semantic-based splitting
 - Overlap for context preservation
 
 ### 3. **Embedding Model**
+
 Converts text to numerical vectors:
+
 - OpenAI Embeddings
 - Sentence Transformers
 - HuggingFace models
 - Local embedding models
 
 ### 4. **Vector Store**
+
 Stores and indexes embeddings:
+
 - FAISS (Facebook AI)
 - ChromaDB
 - Pinecone
@@ -190,13 +213,17 @@ Stores and indexes embeddings:
 - Milvus
 
 ### 5. **Retriever**
+
 Finds relevant documents:
+
 - Similarity search
 - Maximum Marginal Relevance (MMR)
 - Hybrid search (semantic + keyword)
 
 ### 6. **LLM (Generator)**
+
 Generates the final response:
+
 - OpenAI GPT models
 - Anthropic Claude
 - Google Gemini
@@ -217,21 +244,25 @@ Generates the final response:
 ## 🚀 Best Practices
 
 ### 1. **Chunking Strategy**
+
 - Optimal chunk size: 256-1024 tokens
 - Include overlap: 10-20% of chunk size
 - Consider document structure
 
 ### 2. **Embedding Quality**
+
 - Choose embeddings suited for your domain
 - Consider multilingual requirements
 - Test different models
 
 ### 3. **Retrieval Tuning**
+
 - Experiment with top-k values (3-10)
 - Use reranking for better precision
 - Consider hybrid search approaches
 
 ### 4. **Prompt Engineering**
+
 - Clear instructions to the LLM
 - Include source attribution requirements
 - Handle "I don't know" scenarios
