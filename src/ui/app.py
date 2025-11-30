@@ -131,23 +131,43 @@ def main():
             # File uploader
             uploaded_files = st.file_uploader(
                 "Upload Documents",
-                type=["txt", "md"],
+                type=["txt", "md", "pdf"],
                 accept_multiple_files=True,
-                help="Upload .txt or .md files",
+                help="Upload .txt, .md, or .pdf files",
             )
 
             if uploaded_files and st.button("📤 Process Uploaded Files"):
                 with st.spinner("Processing files..."):
                     total_chunks = 0
                     for uploaded_file in uploaded_files:
-                        content = uploaded_file.read().decode("utf-8")
-                        chunks = st.session_state.rag_pipeline.add_text(
-                            content,
-                            metadata={"source": uploaded_file.name},
-                        )
-                        total_chunks += chunks
+                        try:
+                            if uploaded_file.name.endswith('.pdf'):
+                                # Handle PDF files
+                                import pypdf
+                                pdf_reader = pypdf.PdfReader(uploaded_file)
+                                content = ""
+                                for page in pdf_reader.pages:
+                                    content += page.extract_text()
+                            else:
+                                # Handle text files with error handling for encoding
+                                try:
+                                    content = uploaded_file.read().decode("utf-8")
+                                except UnicodeDecodeError:
+                                    # Try alternative encoding
+                                    uploaded_file.seek(0)
+                                    content = uploaded_file.read().decode("latin-1")
+                            
+                            chunks = st.session_state.rag_pipeline.add_text(
+                                content,
+                                metadata={"source": uploaded_file.name},
+                            )
+                            total_chunks += chunks
+                        except Exception as e:
+                            st.error(f"Error processing {uploaded_file.name}: {str(e)}")
+                            continue
+                    
                     st.session_state.documents_loaded = True
-                    st.success(f"✅ Processed {total_chunks} chunks!")
+                    st.success(f"✅ Processed {total_chunks} chunks from {len(uploaded_files)} file(s)!")
 
             # Add custom text
             custom_text = st.text_area(
