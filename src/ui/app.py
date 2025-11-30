@@ -26,14 +26,15 @@ def init_session_state():
         st.session_state.chat_history = []
 
 
-def create_pipeline(openai_api_key: str, use_local_embeddings: bool = True):
+def create_pipeline(openai_api_key: str = None, use_local_embeddings: bool = True, use_local_llm: bool = False): #-> RAGPipeline:
     """Create and return a RAG pipeline."""
     embedding_provider = "sentence_transformer" if use_local_embeddings else "openai"
+    generator_provider = "huggingface" if use_local_llm else "openai"
 
     pipeline = RAGPipeline(
         embedding_provider=embedding_provider,
-        generator_provider="openai",
-        openai_api_key=openai_api_key,
+        generator_provider=generator_provider ,
+        openai_api_key=openai_api_key if not use_local_llm else None,
         persist_directory="./chroma_db",
         chunk_size=500,
         chunk_overlap=50,
@@ -69,13 +70,21 @@ def main():
     with st.sidebar:
         st.header("⚙️ Configuration")
 
-        # API Key input
-        api_key = st.text_input(
-            "OpenAI API Key",
-            type="password",
-            help="Enter your OpenAI API key for the LLM",
-            value=os.environ.get("OPENAI_API_KEY", ""),
+         # API Key input
+        use_local_llm = st.checkbox(
+            "Use Local LLM (Free, No API Key)",
+            value=False,
+            help="Use HuggingFace model locally (slower, no API cost)",
         )
+        
+        api_key = None
+        if not use_local_llm:
+            api_key = st.text_input(
+                "OpenAI API Key",
+                type="password",
+                help="Enter your OpenAI API key for the LLM",
+                value=os.environ.get("OPENAI_API_KEY", ""),
+            )
 
         # Embedding options
         use_local_embeddings = st.checkbox(
@@ -86,13 +95,13 @@ def main():
 
         # Initialize pipeline button
         if st.button("🚀 Initialize RAG System", type="primary"):
-            if not api_key:
-                st.error("Please enter your OpenAI API key")
+            if not use_local_llm and not api_key:
+                st.error("Please enter your OpenAI API key or enable local LLM")
             else:
-                with st.spinner("Initializing RAG system..."):
+                with st.spinner("Initializing RAG system..." + (" (downloading model if first time)" if use_local_llm else "")):
                     try:
                         st.session_state.rag_pipeline = create_pipeline(
-                            api_key, use_local_embeddings
+                            api_key, use_local_embeddings, use_local_llm
                         )
                         st.success("✅ RAG system initialized!")
                     except Exception as e:

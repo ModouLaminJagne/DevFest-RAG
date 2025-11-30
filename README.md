@@ -25,6 +25,7 @@ This workshop teaches you how to build a RAG system from scratch. RAG enhances L
 - Source attribution and transparency
 
 **What you'll learn:**
+
 - Understanding RAG architecture and components
 - Building document loaders and text splitters
 - Working with embeddings and vector stores
@@ -72,23 +73,27 @@ DevFest-RAG/
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/your-username/DevFest-RAG.git
    cd DevFest-RAG
    ```
 
 2. **Create a virtual environment:**
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
 3. **Install dependencies:**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 4. **Set up environment variables:**
+
    ```bash
    cp .env.example .env
    # Edit .env and add your OpenAI API key
@@ -97,11 +102,13 @@ DevFest-RAG/
 ### Quick Start
 
 **Option 1: Run the Streamlit Web UI**
+
 ```bash
 streamlit run src/ui/app.py
 ```
 
 **Option 2: Use the Python API**
+
 ```python
 from src.rag import RAGPipeline
 
