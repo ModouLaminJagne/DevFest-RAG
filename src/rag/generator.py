@@ -132,7 +132,7 @@ class Generator:
 
     DEFAULT_SYSTEM_PROMPT = """You are a helpful assistant that answers questions based on the provided context.
 Always base your answers on the given context. If the context doesn't contain enough information to answer the question, say so.
-Be concise but thorough in your responses."""
+Be brief and precise - aim for 2-3 sentences maximum."""
 
     RAG_PROMPT_TEMPLATE = """Answer the question based on the following context:
 
@@ -144,8 +144,8 @@ Question: {question}
 Instructions:
 - Use only the information from the context above
 - If the context doesn't contain the answer, say "I don't have enough information to answer this question based on the provided context."
-- Cite the source when relevant
-- Be concise but comprehensive
+- Be extremely concise - maximum 2-3 sentences
+- Get straight to the point, no unnecessary elaboration
 
 Answer:"""
 
@@ -155,7 +155,7 @@ Answer:"""
         model_name: Optional[str] = None,
         api_key: Optional[str] = None,
         temperature: float = 0.7,
-        max_tokens: int = 1000,
+        max_tokens: int = 150,
     ):
         """
         Initialize the generator.
