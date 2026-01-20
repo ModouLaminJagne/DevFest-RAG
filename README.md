@@ -17,7 +17,7 @@ A complete **Retrieval Augmented Generation (RAG)** workshop project for DevFest
 
 ## 🎯 Overview
 
-This workshop teaches you how to build a RAG system from scratch. RAG enhances Large Language Models (LLMs) by combining them with external knowledge retrieval, enabling:
+This workshop teaches you how to build a Retrieval Augmented Generation (RAG) system from scratch. RAG enhances Large Language Models (LLMs) by combining them with external knowledge retrieval, enabling:
 
 - Access to up-to-date information
 - Reduced hallucinations
