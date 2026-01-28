@@ -1,6 +1,6 @@
 # 🤖 DevFest RAG Workshop
 
-A complete **Retrieval Augmented Generation (RAG)** workshop project for DevFest 2025. This repository contains both presentation materials and a fully functional RAG implementation with an interactive Streamlit web UI.
+A complete **Retrieval Augmented Generation (RAG)** workshop project for DevFest 2025. This repository contains both presentation materials and a fully functional RAG implementation with an interactive Streamlit web UI. It is strictly for learning purpose.
 
 ## 📋 Table of Contents
 
